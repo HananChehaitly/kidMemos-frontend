@@ -82,7 +82,7 @@ const Home = () => {
                     backgroundColor: "#e6b9b1", fontFamily: "serif",
                     width:90, height:50, fontSize: 13, position:'center'
                   }} >
-                  <Link to="/create" style={{ textDecoration: 'none' }}>Add Memory</Link>
+                  <Link to="/create-memory" style={{ textDecoration: 'none' }}>Add Memory</Link>
                   </Button>
             </div>
         </nav>

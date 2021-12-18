@@ -7,7 +7,8 @@ const ProtectedRoute = (props) => {
     const [loggedIn, setLoggedIn] = useState(null);
     const onRender = async () => {
         await axios.get(`${BASE_API_URL}/authenticate/authApi`, { withCredentials: true }).then(
-            response => setLoggedIn(response.data.authentication)
+            
+            response => {console.log(response); setLoggedIn(response.data.authentication)}
         );        
     }
 
