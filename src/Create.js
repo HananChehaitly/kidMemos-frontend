@@ -4,9 +4,14 @@ import axios from "axios";
 import BASE_API_URL from "./BaseUrl";
 
 const Create = () => {
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
+    const [author, setAuthor] = useState('mario');
+
     const [file, setFile] = useState(null);
 
     const fileSelect= e =>{
+        console.log(e);
         console.log(e.target.files[0]);
         setFile(e.target.files[0])
     }
@@ -14,25 +19,40 @@ const Create = () => {
         e.preventDefault();
         const formData =  new FormData() ;
         formData.append('image', file);
+    
         try {
-            console.log(`${BASE_API_URL}/post/make-memory`)
-            const res =  await axios.post(`${BASE_API_URL}/post/make-memory`,
+            const res =  await axios.post(`${BASE_API_URL}/api/make-memory`,
             formData, 
-            { headers: { 'Content-Type': undefined } },
-            { withCredentials: true });
+            { headers: { 'Content-Type': 'multipart/form-data'}},
+            { withCredentials: true }
+            );
         }catch(err){
             console.log(err);
         }       
     }
    
     return ( 
-        <div>
-        <form onSubmit={onSubmit}>
-            <input type="file" className='file' id='customFile' onChange={fileSelect}/>
-            <input type ='submit' value  ='Upload' />
-        </form> 
-           
-        </div>
+    <div className="create">
+      <h2>Add a New Souvenir</h2>
+      <form>
+        <label>Title:</label>
+        <input 
+          type="text" 
+          required 
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <label>Description:</label>
+        <textarea
+          required
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+        ></textarea>
+        <label>Image:</label>
+        <input type="file" className='file' id='customFile' onChange={fileSelect}/>
+        <button>Save</button>
+      </form>
+    </div>
      );
 }
  
