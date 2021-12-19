@@ -35,6 +35,20 @@ const Create = () => {
     <div className="create">
       <h2>Add a New Souvenir</h2>
       <form>
+        <label>Name:</label>
+        <input 
+          type="text" 
+          required 
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <label>Age:</label>
+        <input 
+          type="text" 
+          required 
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <label>Title:</label>
         <input 
           type="text" 
