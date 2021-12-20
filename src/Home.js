@@ -6,6 +6,7 @@ import MemoList from './MemoList';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import BASE_API_URL from './BaseUrl';
+import SearchIcon from "@material-ui/icons/Search";
 
 const Home = () => {
 
@@ -13,6 +14,7 @@ const Home = () => {
     const [kids, setNames] = useState(null);
     const [memories, setMemories] =  useState (null);
     const [ages, setAges] = useState(null);
+    const [search, setSearch] = useState('');
 
     const getMemories = async () => {
       await axios.get(`${BASE_API_URL}/api`, { withCredentials: true }).then(
@@ -73,6 +75,19 @@ const Home = () => {
       }  
     }
 
+    const makeSearch =  async () => {
+      try {      
+        console.log(search);
+        const res = await axios.get(`${BASE_API_URL}`+'/api/search/'+search,    
+          {withCredentials: true}
+          ).then(result =>{
+            console.log('hi')
+            setMemories(result.data.post);
+          });
+      }catch(err){
+          console.log(err);
+      } 
+    }
   useEffect(() =>{
     getMemories();
     getKids();
@@ -80,6 +95,20 @@ const Home = () => {
   },[]);
 
     return (
+    <div>
+      <div className="search">
+      <div className="searchInputs">
+        <input
+          type="text"
+          placeholder='Search here..'
+          value={search}
+          onChange={(e)=>{setSearch(e.target.value)}}
+        />
+        <div className="searchIcon"> 
+          <SearchIcon onClick={makeSearch}/>
+        </div>
+      </div>
+    </div>
     <div>
     {memories && <div> 
         <nav className="navbar">
@@ -91,8 +120,7 @@ const Home = () => {
                     <em>None</em>
                   </MenuItem>
                   {kids && kids.map((kid) => (
-                      <MenuItem key={kid.id} style={{fontFamily:'serif'}} value={kid.name} onClick={()=>{getKid(kid.name)}}>{kid.name}</MenuItem>
-                    
+                    <MenuItem key={kid.id} style={{fontFamily:'serif'}} value={kid.name} onClick={()=>{getKid(kid.name)}}>{kid.name}</MenuItem>  
                   )) 
                   }
                 </Select>
@@ -128,6 +156,7 @@ const Home = () => {
     
     }
     </div>
+  </div>
       );
 }
  
