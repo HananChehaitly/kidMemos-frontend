@@ -21,13 +21,37 @@ const Home = () => {
       );        
     }
 
+    const getKid =  async (name) => {
+      setName(name);
+      try {      
+        const res =  await axios.get(`${BASE_API_URL}`+'/api/'+name,     
+          {withCredentials: true}
+        ).then(result =>{
+          setMemories(result.data.post);
+        });
+      }catch(err){
+          console.log(err);
+      }
+      //Now we need to change the ages list to those available for this kid only.
+      try {      
+        const res =  await axios.get(`${BASE_API_URL}`+'/api/ages/'+name,     
+          {withCredentials: true}
+        ).then(result =>{
+          console.log(result.data.post)
+          setAges(result.data.post);
+        });
+      }catch(err){
+          console.log(err);
+      }
+    } 
+
     const getKids =  async() => {
       await axios.get(`${BASE_API_URL}/api/kidsNames`, { withCredentials: true }).then(
         response =>{ 
           console.log(response);
           setNames(response.data.post)}
       ); 
-    }
+    } 
 
     const getAges =  async() => {
       await axios.get(`${BASE_API_URL}/api/getAges`, { withCredentials: true }).then(
@@ -36,7 +60,18 @@ const Home = () => {
           setAges(response.data.post)}
       ); 
     }
-
+    const getatAge = async(age) => {
+      try {      
+        console.log(`${BASE_API_URL}`+'/api/'+name+'/'+age);
+        const res =  await axios.get(`${BASE_API_URL}`+'/api/'+name+'/'+age,     
+          {withCredentials: true}
+        ).then(result =>{
+          setMemories(result.data.post);
+        });
+      }catch(err){
+          console.log(err);
+      }  
+    }
 
   useEffect(() =>{
     getMemories();
@@ -56,7 +91,7 @@ const Home = () => {
                     <em>None</em>
                   </MenuItem>
                   {kids && kids.map((kid) => (
-                      <MenuItem key={kid.id} style={{fontFamily:'serif'}} value={kid.id}>{kid.name}</MenuItem>
+                      <MenuItem key={kid.id} style={{fontFamily:'serif'}} value={kid.name} onClick={()=>{getKid(kid.name)}}>{kid.name}</MenuItem>
                     
                   )) 
                   }
@@ -70,7 +105,7 @@ const Home = () => {
                     <em>None</em>
                   </MenuItem>
                   {ages && ages.map((age) => (
-                      <MenuItem key={age.id} style={{fontFamily:'serif'}} value={age.id}>{age.age}</MenuItem> 
+                      <MenuItem key={age.id} style={{fontFamily:'serif'}} value={age.age} onClick={()=>{getatAge(age.age)}}>{age.age}</MenuItem> 
                   )) 
                   }                
                   </Select>
