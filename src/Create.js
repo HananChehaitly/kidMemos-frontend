@@ -15,31 +15,26 @@ const Create = () => {
 
         e.preventDefault();
 
-        // const formData =  new FormData() ;
-        // formData.append('image', file);
-    
-        try {
+        const formData =  new FormData() ;
+        formData.append('image', file);
+        formData.append('name', name);
+        formData.append('age', age);
+        formData.append('title', title);
+        formData.append('content', body);
 
+        try {
+            
             const res =  await axios.post(`${BASE_API_URL}/api/make-memory`,
-            {
-                name:name,
-                age:age,
-                title: title,
-                content: body
-            },
-            {   headers: {
-                    'Content-Type': 'application/json'
-                },
-                withCredentials: true 
-            }
+                
+                    formData
+                ,
+                {   headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    withCredentials: true 
+                }
             
             );
-
-            // const result = await axios.post(`${BASE_API_URL}/api/picture`,
-            // formData, 
-            // { headers: { 'Content-Type': 'multipart/form-data'}},
-            // { withCredentials: true }
-            // );
         
         }catch(err){
             console.log(err);
