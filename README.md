@@ -16,9 +16,9 @@ For more details, go to the documentation: npm Docs
 
 Clone the repository:
 
-- git clone https://github.com/HaidarAliN/E-learning-Hub-Frontend
+- git clone https://github.com/HananChehaitly/kidMemos-frontend.git
 
 In the command line, run:
 
-- cd E-learning-Hub-Frontend
+- cd kidMemos-frontend
 - npm install
