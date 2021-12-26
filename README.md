@@ -5,3 +5,20 @@ KidMemos was developed using React with Material UI for the frontend, Node.JS wi
 Also, KidMemos's backend is deployed to GitHub pages under KidMemos repository.
 
 The authentication is done using **Google OAuth 2.0** which I implemented in Express.JS
+
+## Installation
+
+Install Node.js and npm on your machine using the following command:
+
+- npm install -g npm
+
+For more details, go to the documentation: npm Docs
+
+Clone the repository:
+
+- git clone https://github.com/HaidarAliN/E-learning-Hub-Frontend
+
+In the command line, run:
+
+- cd E-learning-Hub-Frontend
+- npm install
